@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ScnContext {
 
-	private Map<String,String>  = new HashMap<String,String>();
+	private Map<String,String> SCN_DATA  = new HashMap<String,String>();
 	
 	public void SetScnData(String key,String value) {
 		SCN_DATA.put(key, value);
