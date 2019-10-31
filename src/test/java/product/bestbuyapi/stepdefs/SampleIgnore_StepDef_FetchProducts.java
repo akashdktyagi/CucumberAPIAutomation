@@ -6,6 +6,8 @@ import io.restassured.specification.RequestSpecification;
 import product.bestbuyapi.ScnContext;
 import static io.restassured.RestAssured.*;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 import cucumber.api.Scenario;
@@ -15,8 +17,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static org.hamcrest.Matchers.equalTo;
-public class StepDef_FetchProducts {
-
+public class SampleIgnore_StepDef_FetchProducts {
+//list.stream().sorted().collect(Collectors.toList()).equals(list);
+	
+	/*
 	private ScnContext SCN_CONTEXT = null;
 	RequestSpecification _RESP_SPEC;
 	Response _RESPONSE;
@@ -26,7 +30,7 @@ public class StepDef_FetchProducts {
 	int _product_id;
 
 	//DI constructor
-	public StepDef_FetchProducts(ScnContext scn_context) {
+	public SampleIgnore_StepDef_FetchProducts(ScnContext scn_context) {
 		this.SCN_CONTEXT = scn_context;
 	}
 	
@@ -95,5 +99,20 @@ public class StepDef_FetchProducts {
 		_SCN.write("Category is correctly displayed as :" + strCat);
 
 	}
+	
+	
+
+	@When("^I hit health check url$")
+	public void i_hit_the_health_check_url() throws IOException {
+		Properties prop = new Properties();
+		FileInputStream input;
+		input = new FileInputStream("src/test/resources/config.properties");
+		prop.load(input);
+		String baseUri = prop.getProperty("best_buy_base_uri");
+		//_RESP_SPEC = given().baseUri(baseUri).get("/healthcheck");
+	}
+*/
+	
+	
 
 }

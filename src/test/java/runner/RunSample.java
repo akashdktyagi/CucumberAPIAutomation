@@ -16,7 +16,7 @@ import cucumber.api.junit.Cucumber;
 			"html:target/CucumberResults"
 	}
 		)
-public class RunTest {
+public class RunSample {
 
 	//Empty class
 

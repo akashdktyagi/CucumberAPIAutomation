@@ -97,6 +97,11 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.14.1</version>
 				<configuration>
+				<!--  
+					<includes>
+						<include>runner.CucumberTest.java</include>
+					</includes>
+				-->
 				</configuration>
 			</plugin>
 		</plugins>
