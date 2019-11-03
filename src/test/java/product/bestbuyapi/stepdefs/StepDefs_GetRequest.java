@@ -1,6 +1,7 @@
 package product.bestbuyapi.stepdefs;
 
 import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -8,12 +9,20 @@ import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import product.bestbuyapi.ScnContext;
+
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import java.util.Collections;
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 
 /*
  * Hamcrest Matcher Methods
- * equalTo, containsString, hasItem etc
+ * equalTo, containsString, hasItem. hasSize etc
+ * full list:
+ * http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
  */
 public class StepDefs_GetRequest {
 	RequestSpecification _REQUEST_SPEC;
@@ -26,6 +35,16 @@ public class StepDefs_GetRequest {
 		this.scn = s;
 	}
 	
+	@After
+	public void afterHook(Scenario s){
+		this.scn = s;
+		if (_RESP==null) {
+			scn.write("Response: No response received.");
+		}else {
+			scn.write("Response: " + _RESP.asString());
+		}
+	}
+	
 	
 	//*********************************************************
 	//*********************GIVEN*******************************
@@ -33,8 +52,8 @@ public class StepDefs_GetRequest {
 	@Given("Best Buy API is up and running")
 	public void best_Buy_API_is_up_and_running() {
 		_REQUEST_SPEC = given().baseUri("http://localhost:3030");
+		scn.write("Base URL: http://localhost:3030");
 	}
-	
 	
 
 	//*********************************************************
@@ -42,14 +61,20 @@ public class StepDefs_GetRequest {
 	//*********************************************************
 	@When("I hit health check url")
 	public void hit_health_check_url() {
-		_RESP = _REQUEST_SPEC.get("/healthcheck");
+		_RESP = _REQUEST_SPEC.when().get("/healthcheck");
 	}
 	
-	
-	@When("I hit url with query parameter as {string}")
-	public void i_hit_url_with_query_parameter_as(String string) {
 
-		_RESP = _REQUEST_SPEC.get("/products/" + string);
+	@When("I hit url with query parameter as {string}")
+	public void i_hit_url_with_query_parameter_as(String arg) {
+		
+		if (arg.equalsIgnoreCase("all")){
+			_RESP = _REQUEST_SPEC.get("/products/");
+			scn.write("End Point for all products: /products");
+		}else {
+			_RESP = _REQUEST_SPEC.get("/products?" +arg);
+			scn.write("End Point: /products?" + arg);
+		}
 	}
 
 	//**************************************************************
@@ -58,32 +83,69 @@ public class StepDefs_GetRequest {
 	@Then("API returns the response with status code as {int}")
 	public void api_returns_the_response_with_status_code_as(Integer int1) {
 		_RESP.then().assertThat().statusCode(200);
+		scn.write("Status code appearing as 200.");
 
 	}
 
 	@Then("all the products will be returned")
 	public void all_the_products_will_be_returned() {
 		_RESP.then().assertThat().body("total", equalTo(51960));
-		scn.write("Response:"+ _RESP.asString());
-		scn.write("Scn Name:" + scn.getName());
+		scn.write("Scn Ended:" + scn.getName());
 	}
 
 	@Then("{int} number of product will be returned")
-	public void number_of_product_will_be_returned(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	public void number_of_product_will_be_returned(Integer count) {
+		 scn.write("Checking limit key in body has value as " + count);
+		_RESP.then().assertThat().body("limit", equalTo(count));
+		
+		 scn.write("Checking total number of products returned as: " + count);
+		_RESP.then().assertThat().body("data",hasSize(count));
 	}
 
 	@Then("products prices will be returned in descending order")
 	public void products_prices_will_be_returned_in_descending_order() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		List<Float> list = _RESP.jsonPath().getList("data.price");
+		scn.write("prices returned: " + list.toString());
+		
+		//Check list is sorted
+		 boolean isSortedDescending=true;
+	        for(int i=1;i < list.size();i++){
+	            if(list.get(i-1).compareTo(list.get(i)) < 0){
+	            	isSortedDescending= false;
+	                break;
+	            }
+	        }
+	        
+	        if (isSortedDescending) {
+	        	scn.write("Price is returned in sorted in descending order");
+	        	org.hamcrest.MatcherAssert.assertThat(true, is(true));
+	        }else {
+	        	scn.write("Price is not returned in descending order");
+	        	org.hamcrest.MatcherAssert.assertThat(false, is(true));
+	        }
 	}
 
 	@Then("products prices will be returned in ascending order")
 	public void products_prices_will_be_returned_in_ascending_order() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		List<Float> list = _RESP.jsonPath().getList("data.price");
+		scn.write("prices returned: " + list.toString());
+		
+		//Check list is sorted
+		 boolean isSortedAscending=true;
+	        for(int i=1;i < list.size();i++){
+	            if(list.get(i-1).compareTo(list.get(i)) > 0){
+	            	isSortedAscending= false;
+	                break;
+	            }
+	        }
+	        
+	        if (isSortedAscending) {
+	        	scn.write("Price is returned in sorted ascending order");
+	        	org.hamcrest.MatcherAssert.assertThat(true, is(true));
+	        }else {
+	        	scn.write("Price is not returned in sorted ascending order");
+	        	org.hamcrest.MatcherAssert.assertThat(false, is(true));
+	        }
 	}
 
 	@Then("products list should only contain {string} and {string} in the response")

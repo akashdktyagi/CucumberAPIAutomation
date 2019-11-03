@@ -1,4 +1,4 @@
-package product.bestbuyapi.stepdefs;
+package product.bestbuyapi._junk;
 
 
 import io.restassured.response.Response;

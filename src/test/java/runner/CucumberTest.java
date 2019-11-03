@@ -18,13 +18,14 @@ import cucumber.api.junit.Cucumber;
 		features = {"classpath:features/bestbuyapi/GetScenario.feature",
 				"classpath:features/bestbuyapi/"},
 		glue = "product.bestbuyapi",
-		tags = {"@testthis"},
+		tags = {"@get"},
 		plugin =
 			{
 					"pretty" , 
-					"html:target/CucumberResults12"
+					"html:target/CucumberReport",
+					"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 			},
-		dryRun=true
+		dryRun=false
 		
 		)
 public class CucumberTest {

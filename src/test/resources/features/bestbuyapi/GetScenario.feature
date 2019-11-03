@@ -1,22 +1,37 @@
 Feature: Best Buy API Get Product Info
   This feature is to validate all the Get Requests for Products
 
-
-	@testthis
+	@get
 	Scenario: Get All product
     Given Best Buy API is up and running
     When I hit url with query parameter as "all"
     Then API returns the response with status code as 200
     And all the products will be returned
 
-   @get  
+	@get
    Scenario: Get all products, limit to 1 result
     Given Best Buy API is up and running
     When I hit url with query parameter as "$limit=1"
     Then API returns the response with status code as 200
     And  1 number of product will be returned
    
-   @get   
+   @get
+   Scenario Outline: Get all products, limit to "<count>" results
+    Given Best Buy API is up and running
+    When I hit url with query parameter as "<limitVal>"
+    Then API returns the response with status code as 200
+    And  <count> number of product will be returned
+    Examples:
+    |limitVal|count|
+    |$limit=2|2    |
+    |$limit=3|3    |
+    |$limit=4|4    |
+    |$limit=5|5    |
+    |$limit=6|6    |
+    |$limit=7|7    |        
+    |$limit=8|8    |
+        
+   @get
    Scenario: Get all products, sort by highest price (descending)
     Given Best Buy API is up and running
     When I hit url with query parameter as "$sort[price]=-1"
