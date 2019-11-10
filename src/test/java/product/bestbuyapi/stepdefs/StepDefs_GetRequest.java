@@ -14,7 +14,12 @@ import product.bestbuyapi.ScnContext;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import org.json.simple.JSONObject;
 
 import static io.restassured.RestAssured.*;
 
@@ -25,6 +30,8 @@ import static io.restassured.RestAssured.*;
  * http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
  */
 public class StepDefs_GetRequest {
+	
+	/*
 	RequestSpecification _REQUEST_SPEC;
 	Response _RESP;
 	Scenario scn;
@@ -82,8 +89,8 @@ public class StepDefs_GetRequest {
 	//**************************************************************
 	@Then("API returns the response with status code as {int}")
 	public void api_returns_the_response_with_status_code_as(Integer int1) {
-		_RESP.then().assertThat().statusCode(200);
-		scn.write("Status code appearing as 200.");
+		_RESP.then().assertThat().statusCode(int1);
+		scn.write("Status code appearing as: " + int1);
 
 	}
 
@@ -202,4 +209,69 @@ public class StepDefs_GetRequest {
 	    throw new cucumber.api.PendingException();
 	}
 	
+	/*
+
+@When("I submit categories post request with unique name and id")
+public void i_submit_post_request() {
+	
+	//Body
+	JSONObject body_json = new JSONObject();
+	String name = GetRandomString(5); 
+	String id = GetRandomString(4); 
+	body_json.put("id", name);
+	body_json.put("name", id);
+	
+	//Headers
+	Map<String,String> headers = new HashMap<String,String>();
+	headers.put("Content-Type", "application/json");
+
+	_RESP = _REQUEST_SPEC.when().body(body_json).headers(headers).post("/categories");
+}
+
+@Then("new cateogry is created in the system")
+public void new_cateogry_is_created_in_the_system() {
+	scn.write(_RESP.asString());
+}
+
+@When("I submit post request with {string}")
+public void i_submit_post_request_with(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new cucumber.api.PendingException();
+}
+
+@Then("reponse should have bad request error message as {string}")
+public void reponse_should_have_bad_request_error_message_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new cucumber.api.PendingException();
+}
+
+//To get random Key
+public String GetRandomString(int n) {
+	// lower limit for LowerCase Letters 
+	int lowerLimit = 97; 
+
+	// lower limit for LowerCase Letters 
+	int upperLimit = 122; 
+
+	Random random = new Random(); 
+
+	// Create a StringBuffer to store the result 
+	StringBuffer r = new StringBuffer(n); 
+
+	for (int i = 0; i < n; i++) { 
+
+		// take a random value between 97 and 122 
+		int nextRandomChar = lowerLimit 
+				+ (int)(random.nextFloat() 
+						* (upperLimit - lowerLimit + 1)); 
+
+		// append a character at the end of bs 
+		r.append((char)nextRandomChar); 
+	} 
+
+	// return the resultant string 
+	return r.toString(); 
+} 
+	
+	*/
 }
