@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import product.bestbuyapi.ContextDI;
 import product.bestbuyapi.ScnContext;
 
 import static org.hamcrest.Matchers.*;
@@ -31,10 +32,13 @@ import static io.restassured.RestAssured.*;
  */
 public class StepDefs_GetRequest {
 	
-	/*
-	RequestSpecification _REQUEST_SPEC;
-	Response _RESP;
+
 	Scenario scn;
+	ContextDI _CNTXT;
+	
+	public StepDefs_GetRequest(ContextDI cntxt) {
+		this._CNTXT = cntxt;
+	}
 	
 	//Hooks
 	@Before
@@ -58,8 +62,10 @@ public class StepDefs_GetRequest {
 	//*********************************************************
 	@Given("Best Buy API is up and running")
 	public void best_Buy_API_is_up_and_running() {
-		_REQUEST_SPEC = given().baseUri("http://localhost:3030");
+		RequestSpecification _REQUEST_SPEC = given().baseUri("http://localhost:3030");
+		_CNTXT.set_REQUEST_SPEC(_REQUEST_SPEC);
 		scn.write("Base URL: http://localhost:3030");
+		
 	}
 	
 
@@ -68,7 +74,8 @@ public class StepDefs_GetRequest {
 	//*********************************************************
 	@When("I hit health check url")
 	public void hit_health_check_url() {
-		_RESP = _REQUEST_SPEC.when().get("/healthcheck");
+		Response _RESP = _CNTXT.get_REQUEST_SPEC().when().get("/healthcheck");
+		_CNTXT.set_RESP(_RESP);
 	}
 	
 
@@ -76,7 +83,7 @@ public class StepDefs_GetRequest {
 	public void i_hit_url_with_query_parameter_as(String arg) {
 		
 		if (arg.equalsIgnoreCase("all")){
-			_RESP = _REQUEST_SPEC.get("/products/");
+			_RESP = _CNTXT.get_REQUEST_SPEC().get("/products/");
 			scn.write("End Point for all products: /products");
 		}else {
 			_RESP = _REQUEST_SPEC.get("/products?" +arg);

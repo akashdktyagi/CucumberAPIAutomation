@@ -15,9 +15,9 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 	
-		features = {"classpath:features/bestbuyapi/PostScenario.feature"},
+		features = {"classpath:features/bestbuyapi"},
 		glue = "product.bestbuyapi",
-		tags = {"@akash"},
+		//tags = {"@akash"},
 		plugin =
 			{
 					"pretty" , 
