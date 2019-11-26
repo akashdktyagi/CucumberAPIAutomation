@@ -17,7 +17,7 @@ import cucumber.api.junit.Cucumber;
 	
 		features = {"classpath:features/bestbuyapi"},
 		glue = "product.bestbuyapi",
-		//tags = {"@akash"},
+		tags = {"@wip"},
 		plugin =
 			{
 					"pretty" , 
