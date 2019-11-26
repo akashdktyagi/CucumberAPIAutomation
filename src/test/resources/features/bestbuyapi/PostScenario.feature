@@ -1,18 +1,12 @@
 @post
 Feature: Post requests
- 	@akash
+ 	@post
    Scenario: Create new category with unique name and id
     Given Best Buy API is up and running
     When I submit categories post request with unique name and id
     Then API returns the response with status code as 201
     And  new cateogry is created in the system
-    
-  @post
-   Scenario: Create new category with existing name and unique id
-    Given Best Buy API is up and running
-    When I submit categories post request with existing name and unique id
-    Then API returns the response with status code as 201
-    And  new cateogry is created in the system
+    And new category is correctly saved in database
     
    @post
    Scenario: Negative test-new category should not be created if already present
