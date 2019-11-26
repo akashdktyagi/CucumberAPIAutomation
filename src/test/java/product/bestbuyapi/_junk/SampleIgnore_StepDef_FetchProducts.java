@@ -3,7 +3,7 @@ package product.bestbuyapi._junk;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import product.bestbuyapi.ScnContext;
+
 import static io.restassured.RestAssured.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
