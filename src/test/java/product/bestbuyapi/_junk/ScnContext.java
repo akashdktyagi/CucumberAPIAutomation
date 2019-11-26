@@ -1,4 +1,4 @@
-package product.bestbuyapi;
+package product.bestbuyapi._junk;
 
 import java.util.HashMap;
 import java.util.Map;

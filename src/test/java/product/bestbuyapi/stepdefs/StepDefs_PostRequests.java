@@ -24,16 +24,15 @@ import static io.restassured.RestAssured.*;
  * full list:
  * http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
  */
-public class StepDefs_GetRequest extends BaseClass {
+public class StepDefs_PostRequests extends BaseClass {
 
 	/*
 	private RequestSpecification _REQUEST_SPEC;
 	private Response _RESP;
 	String unique_cat_name;
 	String unique_cat_id;
-		Scenario scn;
 	*/
-
+	//Scenario scn;
 
 	/*
 	ContextDI _CNTXT;
@@ -44,7 +43,6 @@ public class StepDefs_GetRequest extends BaseClass {
 	 */
 
 	//Hooks
-	
 	@Before
 	public void beforeHook(Scenario s) {
 		this.scn = s;
@@ -60,7 +58,7 @@ public class StepDefs_GetRequest extends BaseClass {
 		}
 	}
 
-
+/*
 	//*********************************************************
 	//*********************GIVEN*******************************
 	//*********************************************************
@@ -218,8 +216,7 @@ public class StepDefs_GetRequest extends BaseClass {
 		// Write code here that turns the phrase above into concrete actions
 		throw new cucumber.api.PendingException();
 	}
-
-	/*
+*/
 	//***************************************************
 	//***********************POST************************
 	//***************************************************
@@ -268,7 +265,6 @@ public class StepDefs_GetRequest extends BaseClass {
 		throw new cucumber.api.PendingException();
 	}
 
-*/
 
 	//*************************UTILS**************************
 	//To get random Key
