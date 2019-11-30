@@ -1,6 +1,7 @@
 package product.bestbuyapi.stepdefs;
 
 import cucumber.api.java.en.Then;
+
 import cucumber.api.java.en.When;
 import product.bestbuyapi.utils.BaseClass;
 import static io.restassured.RestAssured.*;

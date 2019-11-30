@@ -15,9 +15,10 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 	
-		features = {"classpath:features/bestbuyapi"},
+		features = {"classpath:features/bestbuyapi/ProductsDelete.feature"},
 		glue = "product.bestbuyapi",
-		tags = {"@wip"},
+		monochrome=true,
+		//tags = {"@e2e"},
 		plugin =
 			{
 					"pretty" , 

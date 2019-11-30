@@ -59,12 +59,12 @@ Feature: Best Buy API Get Product Info
     Then API returns the response with status code as 200
     And products with only type as "HardGood" will be displayed.
     
-   @get     
+   @get @ravi   
    Scenario: Get products less than or equal to $1.00
     Given Best Buy API is up and running
-    When I hit url with query parameter as "price[$lte]=1"
+    When I hit url with query parameter as "price[$lte]=1.0"
     Then API returns the response with status code as 200
-    And products with price less than or equal to "$1.00" will be displayed 
+    And products with price less than or equal to $1.00 will be displayed 
     
    @get
    Scenario: Get products that have 'star wars' in the name and are under $30

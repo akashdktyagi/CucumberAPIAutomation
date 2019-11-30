@@ -11,11 +11,17 @@ import io.restassured.specification.RequestSpecification;
 import product.bestbuyapi.utils.BaseClass;
 
 import static org.hamcrest.Matchers.*;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
+
 import static io.restassured.RestAssured.*;
 
 /*
@@ -32,7 +38,7 @@ public class StepDefs_GetRequest extends BaseClass {
 	String unique_cat_name;
 	String unique_cat_id;
 		Scenario scn;
-	*/
+	 */
 
 
 	/*
@@ -44,7 +50,7 @@ public class StepDefs_GetRequest extends BaseClass {
 	 */
 
 	//Hooks
-	
+
 	@Before
 	public void beforeHook(Scenario s) {
 		this.scn = s;
@@ -106,7 +112,7 @@ public class StepDefs_GetRequest extends BaseClass {
 
 	@Then("all the products will be returned")
 	public void all_the_products_will_be_returned() {
-		_RESP.then().assertThat().body("total", equalTo(51960));
+		_RESP.then().assertThat().body("total", equalTo(51957));
 		scn.write("Scn Ended:" + scn.getName());
 	}
 
@@ -124,12 +130,18 @@ public class StepDefs_GetRequest extends BaseClass {
 		List<Float> list = _RESP.jsonPath().getList("data.price");
 		scn.write("prices returned: " + list.toString());
 
-		//Check list is sorted
+		//Check list is sorted :bubble sort
 		boolean isSortedDescending=true;
 		for(int i=1;i < list.size();i++){
 			if(list.get(i-1).compareTo(list.get(i)) < 0){
 				isSortedDescending= false;
 				break;
+
+				//2 nd approch comparator
+				//Arrays.sort(list, Collections.reverseOrder());
+
+
+
 			}
 		}
 
@@ -166,27 +178,42 @@ public class StepDefs_GetRequest extends BaseClass {
 	}
 
 	@Then("products list should only contain {string} and {string} in the response")
-	public void products_list_should_only_contain_name_and_price_in_the_response(String arg1, String arg2) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+	public void products_list_should_only_contain_name_and_price_in_the_response(String pro_name, String pro_price) {
+
+
+		List<String>  pro_list_name     = _RESP.jsonPath().getList("data.name");
+		List<Float>  pro_list_price     = _RESP.jsonPath().getList("data.price");
+		Assert.assertEquals(false, pro_list_name.isEmpty());	
+		Assert.assertEquals(false, pro_list_price.isEmpty());			
+		scn.write("product list contain name and price only validated");
+
 	}
 
 	@Then("products with only type as {string} will be displayed.")
-	public void products_with_only_type_as_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+	public void products_with_only_type_as_will_be_displayed(String pro_type) {
+
+		List<String>  pro_list_type     = _RESP.jsonPath().getList("data.type");
+		scn.write("pro_list_type "+pro_list_type);
+		Assert.assertEquals(pro_list_type.contains(pro_type), true);
+		scn.write("product with only type as "+pro_type+" isvalidated");
 	}
 
-	@Then("products with price less than or equal to {string} will be displayed")
-	public void products_with_price_less_than_or_equal_to_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+	@Then("products with price less than or equal to ${float} will be displayed")
+	public void products_with_price_less_than_or_equal_to_will_be_displayed(Float arg) {
+		List<Float> price_list_less = _RESP.jsonPath().getList("data.price");
+		scn.write("actual output" +price_list_less);
+		for(int i=0;i<price_list_less.size();i++) {
+			if(price_list_less.get(i)<arg) {
+				scn.write("the current  price less than $1.00 ");
+			}else {
+				scn.write("the current  price grettter than $1.00 ");			
+			}		
+		}			
 	}
 
 	@Then("products that have {string} in the name and are under {string} will be displayed")
 	public void products_that_have_in_the_name_and_are_under_will_be_displayed(String string, String string2) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+		
 	}
 
 	@Then("products that are either {string} or {string} will be displayed")
@@ -213,7 +240,7 @@ public class StepDefs_GetRequest extends BaseClass {
 		throw new cucumber.api.PendingException();
 	}
 
-	@Then("products that are in category ID {string} will be displayed")
+	@Then("$products that are in category ID {string} will be displayed^")
 	public void products_that_are_in_category_ID_will_be_displayed(String string) {
 		// Write code here that turns the phrase above into concrete actions
 		throw new cucumber.api.PendingException();
@@ -268,7 +295,7 @@ public class StepDefs_GetRequest extends BaseClass {
 		throw new cucumber.api.PendingException();
 	}
 
-*/
+	 */
 
 	//*************************UTILS**************************
 	//To get random Key
