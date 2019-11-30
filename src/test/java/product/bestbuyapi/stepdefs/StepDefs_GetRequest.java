@@ -8,6 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import junit.framework.Assert;
 import product.bestbuyapi.utils.BaseClass;
 
 import static org.hamcrest.Matchers.*;
@@ -173,8 +174,15 @@ public class StepDefs_GetRequest extends BaseClass {
 
 	@Then("products with only type as {string} will be displayed.")
 	public void products_with_only_type_as_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+		List<String> list = _RESP.jsonPath().getList("data.type");
+		for (int i=0;i<list.size();i++) {
+			if (list.get(i)==string) {
+				Assert.assertTrue(true);
+			}else {
+				scn.write("Type not displayed as : " + string);
+				Assert.assertTrue(false);
+			}
+		}
 	}
 
 	@Then("products with price less than or equal to {string} will be displayed")
