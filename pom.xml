@@ -74,6 +74,20 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.28</version>
 		</dependency>
+		<!-- selenium -->
+		 <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.141.0</version>
+    </dependency> 
+    <!-- Test ng....... -->
+     <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.14.3</version>
+    <scope>test</scope>
+</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
 		<dependency>
@@ -81,7 +95,25 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.10.2</version>
 		</dependency>
-
+		
+		<!-- apache poi dependancy -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+          <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi-ooxml</artifactId>
+          <version>3.14</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+          <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+          <!-- test ng  -->
+     <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.14.3</version>
+    <scope>test</scope>
+</dependency>
+           
+         
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
@@ -101,6 +133,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.14.1</version>
 				<configuration>
+				<!-- regression pack run  -->
+				<XMLSuiteFiles>testng.xml</XMLSuiteFiles>
 				<!--  
 					<includes>
 						<include>runner.Runner.java</include>
