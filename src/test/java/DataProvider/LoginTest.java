@@ -7,6 +7,7 @@ import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,26 +26,22 @@ public class LoginTest {
 		  
 	  }
 	  
-	  @DataProvider
-	  public Object[][] getlogindata() throws EncryptedDocumentException, Exception{
-	  Object data[][]  =  TestUtil.getTestData("login");	  
-		return data;
+		@Test(dataProvider="create", dataProviderClass=DataProviderTest.class)
+		public void login_to_parabank(String username, String password) {
 			
+			  driver.findElement(By.name("username")).sendKeys(username);
+			  driver.findElement(By.name("password")).sendKeys(password);
+			  driver.findElement(By.xpath("//*[@id='loginPanel']/form/div[3]/input")).click();
+
+			
+			 
+		}
+		@AfterMethod
+		public void teardown() {
+			driver.close();
 		}
 	  
-	  @Test(dataProvider = "getlogindata")
-	  public void logintest(String username, String password) {
-		  driver.findElement(By.name("username")).sendKeys(username);
-		  driver.findElement(By.name("password")).sendKeys(password);
-		  driver.findElement(By.xpath("//*[@id='loginPanel']/form/div[3]/input")).click();
 
-		  
-		  
-		  
-
-		  
-		  
-	  }
 		  
 }
 
