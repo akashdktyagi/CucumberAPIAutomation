@@ -20,7 +20,8 @@ import cucumber.api.junit.Cucumber;
 		plugin =
 			{
 					"pretty" , 
-					"html:target/CucumberReport",
+					"json:target/cucumber.json",
+					"html:target/cucumber",
 					"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 			},
 		dryRun=false
