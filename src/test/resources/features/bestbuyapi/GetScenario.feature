@@ -52,46 +52,46 @@ Feature: Best Buy API Get Product Info
     Then API returns the response with status code as 200
     And products list should only contain "name" and "price" in the response
    
-   @get 
+   @get
    Scenario: Get products of type HardGood
     Given Best Buy API is up and running
     When I hit url with query parameter as "type=HardGood"
     Then API returns the response with status code as 200
     And products with only type as "HardGood" will be displayed.
     
-   @get @ravi   
+   @get    
    Scenario: Get products less than or equal to $1.00
     Given Best Buy API is up and running
     When I hit url with query parameter as "price[$lte]=1.0"
     Then API returns the response with status code as 200
     And products with price less than or equal to $1.00 will be displayed 
     
-   @get
-   Scenario: Get products that have 'star wars' in the name and are under $30
+   @get 
+   Scenario: Get products that have "star wars" in the name and are under $30
     Given Best Buy API is up and running
     When I hit url with query parameter as "name[$like]=*star+wars*&price[$lt]=30"
     Then API returns the response with status code as 200
-    And products that have "star wars" in the name and are under "$30" will be displayed 
+    And products that have "star wars" in the name and are under $30 will be displayed 
     
-   @get 
+   @get
    Scenario: Get products that are either $0.99 or $1.99
     Given Best Buy API is up and running
     When I hit url with query parameter as "price[$in]=0.99&price[$in]=1.99"
     Then API returns the response with status code as 200
-    And products that are either "$0.99" or "$1.99" will be displayed     
+    And products that are either $0.99 or $1.99 will be displayed     
 
    Scenario: Get products that are either $5 or $6
     Given Best Buy API is up and running
     When I hit url with query parameter as "price[$in]=5&price[$in]=6"
     Then API returns the response with status code as 200
-    And products that are either "$5" or "$6" will be displayed 
+    And products that are either $5.0 or $6.0 will be displayed 
        
-   @get 
+   @get  
    Scenario: Get products that have a shipping price of more than $10
     Given Best Buy API is up and running
     When I hit url with query parameter as "shipping[$gt]=10"
     Then API returns the response with status code as 200
-    And products that have a shipping price of more than "$10" will be displayed   
+    And products that have a shipping price of more than $10.0 will be displayed   
    
    @get 
    Scenario: Get products that are not HardGood or Software
@@ -100,14 +100,14 @@ Feature: Best Buy API Get Product Info
     Then API returns the response with status code as 200
     And products that are not "HardGood" or "Software" will be displayed       
    
-   @get 
+   @get  
    Scenario: Get products that are in category name "Coffee Pods"
     Given Best Buy API is up and running
     When I hit url with query parameter as "category.name=Coffee Pods"
     Then API returns the response with status code as 200
     And products that are in category name "Coffee Pods" will be displayed      
    
-   @get 
+   @get @ravi
    Scenario: Get products that are in category ID "abcat0106004" (TV Mounts)
     Given Best Buy API is up and running
     When I hit url with query parameter as "category.id=abcat0106004"

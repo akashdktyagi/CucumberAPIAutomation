@@ -9,8 +9,6 @@ import org.testng.annotations.Test;
 public  class DataProviderTest {
 	WebDriver driver;
 	
-	
-	
 	 @DataProvider(name="create")
 	  public static Object[][] getlogindata() throws EncryptedDocumentException, Exception{
 	  Object data[][]  =  TestUtil.getTestData("login");	  

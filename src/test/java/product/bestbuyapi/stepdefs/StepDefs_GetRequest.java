@@ -137,11 +137,6 @@ public class StepDefs_GetRequest extends BaseClass {
 				isSortedDescending= false;
 				break;
 
-				//2 nd approch comparator
-				//Arrays.sort(list, Collections.reverseOrder());
-
-
-
 			}
 		}
 
@@ -192,7 +187,7 @@ public class StepDefs_GetRequest extends BaseClass {
 	@Then("products with only type as {string} will be displayed.")
 	public void products_with_only_type_as_will_be_displayed(String pro_type) {
 
-		List<String>  pro_list_type     = _RESP.jsonPath().getList("data.type");
+		List<String>  pro_list_type = _RESP.jsonPath().getList("data.type");
 		scn.write("pro_list_type "+pro_list_type);
 		Assert.assertEquals(pro_list_type.contains(pro_type), true);
 		scn.write("product with only type as "+pro_type+" isvalidated");
@@ -211,39 +206,83 @@ public class StepDefs_GetRequest extends BaseClass {
 		}			
 	}
 
-	@Then("products that have {string} in the name and are under {string} will be displayed")
-	public void products_that_have_in_the_name_and_are_under_will_be_displayed(String string, String string2) {
+	@Then("products that have {string} in the name and are under ${int} will be displayed")
+	public void products_that_have_in_the_name_and_are_under_will_be_displayed(String str, Integer arg) {
+		List<String> pro_name = _RESP.jsonPath().getList("data.name");
+		scn.write("pro_list_type "+pro_name);
+		Assert.assertEquals(pro_name.contains(str), true);
+		scn.write("product with only type as "+str+" isvalidated");
+
+	}
+
+	@Then("products that are either ${float} or ${float} will be displayed")
+	public void products_that_are_either_or_will_be_displayed(Float arg1 , Float arg2) {
+		List<Float> pro_price = _RESP.jsonPath().getList("data.price");
+		scn.write("pro_price "+pro_price);
+
+		if(pro_price.contains(arg1)||pro_price.contains(arg1)) {
+			scn.write("productPrice within  range ");
+
+
+		}else {
+			scn.write("product is not range ");
+		}
+	}
+
+	@Then("products that have a shipping price of more than ${float} will be displayed")
+	public void products_that_have_a_shipping_price_of_more_than_will_be_displayed(Float arg) {
+		List<Float> shiping_price = _RESP.jsonPath().getList("data.shipping");
+		scn.write("shiping_price "+shiping_price);
+		for (Float shiping_priceit : shiping_price) {
+			
+
+		if(shiping_priceit>arg) {
+			scn.write("shiping_Price within  range ");
+
+
+		}else {
+			scn.write("shiping price is not range ");
+		}
+		}
 		
-	}
-
-	@Then("products that are either {string} or {string} will be displayed")
-	public void products_that_are_either_or_will_be_displayed(String string, String string2) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
-	}
-
-	@Then("products that have a shipping price of more than {string} will be displayed")
-	public void products_that_have_a_shipping_price_of_more_than_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
 	}
 
 	@Then("products that are not {string} or {string} will be displayed")
 	public void products_that_are_not_or_will_be_displayed(String string, String string2) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+		List<String>  pro_list_type = _RESP.jsonPath().getList("data.type");
+		scn.write("pro_list_type "+pro_list_type);
+		if(pro_list_type.contains(string)||pro_list_type.contains(string2)) {
+			scn.write("product are not of correct type");
+		}else {
+		scn.write("product with only type as  "+string + " " +string2+" isvalidated");
+		}
 	}
 
 	@Then("products that are in category name {string} will be displayed")
 	public void products_that_are_in_category_name_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+		List<String>  catg_list_name = _RESP.jsonPath().getList("data.categories.name");
+		scn.write("catg_list_name "+catg_list_name);
+		if(catg_list_name.contains(string)) {
+			scn.write("Category are not of correct type");
+		}else {
+		scn.write("category name as    "+string + "isvalidated");
+		}
 	}
 
-	@Then("$products that are in category ID {string} will be displayed^")
+	@Then("products that are in category ID {string} will be displayed")
 	public void products_that_are_in_category_ID_will_be_displayed(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new cucumber.api.PendingException();
+		//List<String>  catg_list_ID = _RESP.jsonPath().getList("data.categories.id");
+		//scn.write("catg_list_ID "+catg_list_ID);
+		_RESP.then().assertThat().body("data.categories.id[2]", hasItem(string));
+		scn.write("category id as    "+string + "isvalidated");
+
+
+//		if(catg_list_ID.contains(string)) {
+//			scn.write("Category_id are not of correct type");
+//		}else {
+//		scn.write("category id as    "+string + "isvalidated");
+//		}
+		
 	}
 
 	/*

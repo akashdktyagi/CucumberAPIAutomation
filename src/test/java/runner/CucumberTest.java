@@ -15,10 +15,10 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 	
-		features = {"classpath:features/bestbuyapi/ProductsDelete.feature"},
+		features = {"classpath:features/bestbuyapi/GetScenario.feature"},
 		glue = "product.bestbuyapi",
 		monochrome=true,
-		//tags = {"@e2e"},
+		tags = {"@ravi"},
 		plugin =
 			{
 					"pretty" , 

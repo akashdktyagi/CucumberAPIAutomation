@@ -13,6 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTest {
+	
 	  WebDriver driver;
 	 
 	  @BeforeMethod

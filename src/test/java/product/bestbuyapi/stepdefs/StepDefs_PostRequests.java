@@ -1,6 +1,7 @@
 package product.bestbuyapi.stepdefs;
 
 import cucumber.api.Scenario;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -16,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import org.json.simple.JSONObject;
-import static io.restassured.RestAssured.*;
+
+import io.restassured.RestAssured;
+import io.restassured.RestAssured.*;
 
 /*
  * Hamcrest Matcher Methods
@@ -26,10 +29,10 @@ import static io.restassured.RestAssured.*;
  */
 public class StepDefs_PostRequests extends BaseClass {
 
-	/*
+	
 	private RequestSpecification _REQUEST_SPEC;
 	private Response _RESP;
-	String unique_cat_name;
+	/*	String unique_cat_name;
 	String unique_cat_id;
 	*/
 	//Scenario scn;
@@ -58,18 +61,18 @@ public class StepDefs_PostRequests extends BaseClass {
 		}
 	}
 
-/*
+
 	//*********************************************************
 	//*********************GIVEN*******************************
 	//*********************************************************
 	@Given("Best Buy API is up and running")
 	public void best_Buy_API_is_up_and_running() {
-		_REQUEST_SPEC = given().baseUri("http://localhost:3030");
+	_REQUEST_SPEC = RestAssured.given().baseUri("http://localhost:3030");
 		scn.write("Base URL: http://localhost:3030");
 
 	}
 
-
+	/*
 	//*********************************************************
 	//*******************WHEN**********************************
 	//*********************************************************

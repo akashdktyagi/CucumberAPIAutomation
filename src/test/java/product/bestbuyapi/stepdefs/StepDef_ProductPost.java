@@ -74,7 +74,7 @@ public class StepDef_ProductPost extends BaseClass{
 	@Then("Fetch new generated product id")
 	public void fetch_new_generated_product_id() {
 		new_product_id = _RESP.jsonPath().getInt("id");
-		scn.write("new_product_id "+ new_product_id);
+		scn.write("new_product_id display "+ new_product_id);
 	}
 
 	@Then("Validate Product by Name")
